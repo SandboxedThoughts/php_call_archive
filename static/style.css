@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+}
+.title{display: flex; width: 100%; margin: 10px auto 0 auto; justify-content: center; align-items: center;}
+
+form {display: flex; flex-flow: column; margin: 5px auto 20px auto; justify-content: center; background: none; background-color: #fff;}
+input{width: 100px; height: 50px; background-color: #fff; border: 1px solid #dddddd; box-shadow: -2px 2px 3px #000;}table, th, td{font-size: 12pt;justify-content: center; ;align-items:left; border-collapse: collapse; border: 1px solid black;padding:10px;}
+
+#backup-info{position: absolute; background-color: #ffffffda; height: 100%; width:100%; display: flex; flex-flow: column nowrap; margin: auto; justify-content: center;align-items: center;text-align: center;}
+#backup-info>subtitle{font-size: 30pt; font-weight: 600;}
+#backup-info>button{height: 100px; width:200px;}
+
+.odd{background-color: #dddddd;}
+.table-container{display: flex; width: 80vw; margin:20px auto; justify-content: center; align-items: center;}
