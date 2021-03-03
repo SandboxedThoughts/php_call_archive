@@ -2,7 +2,9 @@
 provides a solution to neatly display exported WAV/XML pairs of call recordings for users to download locally.
 
 ## How to use:
-load into your webserver and download XML/WAV pairs and directories to phone_recordings
+- load into your webserver and download XML/WAV pairs and directories to phone_recordings
+- create the MySQL database and table you would like to use
+- replace the database information in helpers/vars.php with your own database information
 
 ## What it does:
 1. Recurses through the phone_recordings directory
