@@ -21,4 +21,6 @@ $conn = mysqli_connect($RECORDINGS_HOST, $RECORDINGS_USER, $RECORDINGS_PASSWORD,
 # Initial sql query: get everything
 $sql = "SELECT * FROM recording_log";
 
+$get_total = mysqli_query($conn, $sql);
+$total_rows = mysqli_num_rows($get_total);
 ?>
