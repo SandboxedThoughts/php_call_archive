@@ -36,20 +36,7 @@
                 <table id="recordings-table">
                     <thead>
                         <tr>
-                            <?php
-                                function sortByHead($sort_on){
-                                    if (!isset($_GET['page'])){$page = 1;} else {$page = $_GET['page'];}
-                                    if (!isset($_GET['per_page'])){$per_page = 10;} else {$per_page = $_GET['per_page'];}
-                                    # Set starting sort column and order
-                                    if (!isset($_GET['sort_on'])){$sort_on = "date_created_ts";}else{$sort_on = $_GET['sort_on'];}
-                                    if (!isset($_GET['sort_order'])){$sort_order = 'desc';}else{$sort_order = $_GET['sort_order'];}
-                                    if ($sort_order =='desc'){$sort_order='asc';}
-                                    else{$sort_order = 'desc';}
-                                    $link = "records.php?per_page=".$per_page."&page=". $page."&sort_on=".$sort_on."&sort_order=".$sort_order;
-                                    return $link;
-                                }
-                            ?>
-                            <th>Recording</th>
+                            <th id="recording-col">Recording</th>
                             <th onclick="sortTable(1)">Recording Tag</th>
                             <th onclick="sortTable(2)">From Caller ID</th>
                             <th onclick="sortTable(3)">To Caller ID</th>
@@ -80,6 +67,16 @@
                     </tbody>
                 </table>  
             </div>
+            <form action="" method="GET" id="per-page">
+                <select class="rows-per-page" name="per_page">
+                    <option value="10"<?php if ($per_page == 10){echo "selected";} ?>>10</option>
+                    <option value="25"<?php if ($per_page == 25){echo "selected";} ?>>25</option>
+                    <option value="50"<?php if ($per_page == 50){echo "selected";} ?>>50</option>
+                    <option value="100"<?php if ($per_page == 100){echo "selected";} ?>>100</option>
+                </select>
+                <input type="submit" value="per page">
+            </form>
+
             <?php include 'helpers/pagination.php'; ?>
         </div>
         <script src="static/js/scripts.js"></script>
