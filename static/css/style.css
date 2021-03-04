@@ -18,8 +18,7 @@ table, th, td{font-size: 12pt;justify-content: center; ;align-items:left; border
 #backup-info>subtitle{font-size: 30pt; font-weight: 600;}
 #backup-info>button{height: 100px; width:200px;}
 thead{background-color: #a0c6ff;}
-.odd{background-color: #fff;}
-.even{background-color: #ccd9ec;}
+tr:nth-child(even) {background-color: #f2f2f2;}
 .table-container{display: flex; width: 80vw; margin:20px auto; justify-content: center; align-items: center;}
 
 .page-link{margin: auto 10px; text-decoration: none; color: #0000ee;}

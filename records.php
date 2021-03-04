@@ -33,7 +33,7 @@
                 include 'helpers/pagination.php'; 
             ?>
             <div class="table-container">
-                <table>
+                <table id="recordings-table">
                     <thead>
                         <tr>
                             <?php
@@ -50,11 +50,11 @@
                                 }
                             ?>
                             <th>Recording</th>
-                            <th><a href="<?php $link=sortByHead('recording_tag'); echo $link;?>">Recording Tag</a></th>
-                            <th><a href="<?php $link=sortByHead('from_caller_id'); echo $link;?>">From Caller ID</a></th>
-                            <th><a href="<?php $link=sortByHead('to_caller_id'); echo $link;?>">To Caller ID</a></th>
-                            <th><a href="<?php $link=sortByHead('duration'); echo $link;?>">Duration</a></th>
-                            <th><a href="<?php $link=sortByHead('date_created_ts'); echo $link;?>">Date Created (timestamp)</a></th>
+                            <th onclick="sortTable(1)">Recording Tag</th>
+                            <th onclick="sortTable(2)">From Caller ID</th>
+                            <th onclick="sortTable(3)">To Caller ID</th>
+                            <th onclick="sortTable(4)">Duration</th>
+                            <th onclick="sortTable(5)">Date Created (timestamp)</th>
                         </tr>
                     </thead>
 
