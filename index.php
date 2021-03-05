@@ -28,9 +28,28 @@
             if (!isset($_GET['sort_on'])){$sort_on = "date_created_ts";}else{$sort_on = $_GET['sort_on'];}
             if (!isset($_GET['sort_order'])){$sort_order = 'desc';}else{$sort_order = $_GET['sort_order'];}
             # Get the records for the page
-            $sql = "SELECT * FROM recording_log ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
+            if(!isset($_GET['search'])){$search="";}else{$search = $_GET['search'];}
+            if(!isset($_GET['search_col'])){$search_col="";}else{$search_col = $_GET['search_col'];}
+            if (($search != "") AND ($search_col != "")){
+                $sql = "SELECT * FROM recording_log WHERE ". $search_col . "LIKE '%". $search . "%' ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
+            }
+            else {
+                $sql = "SELECT * FROM recording_log ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
+            }
             if ($result = mysqli_query($conn, $sql)){
+            echo "<h1>".$sql."</h1>";
         ?>
+            <form class="search" action="/" method="GET">
+                <label for="search">Search for: </label>
+                <input type="text" name="search" />
+                <label for="search_col"> in column:</label>
+                <select name="search_col">
+                    <option value="recording_tag">Recording Tag</option>
+                    <option value="from_caller_id">From Caller ID</option>
+                    <option value="to_caller_id">To Caller ID</option>
+                </select>
+                <input type="submit" value="search">
+            </form>
             <div class="table-container">
                 <table id="recordings-table">
                     <thead>
