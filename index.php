@@ -31,12 +31,14 @@
             if(!isset($_GET['search'])){$search="";}else{$search = $_GET['search'];}
             if(!isset($_GET['search_col'])){$search_col="";}else{$search_col = $_GET['search_col'];}
             if (($search != "") AND ($search_col != "")){
-                $sql = "SELECT * FROM recording_log WHERE ". $search_col . "LIKE '%". $search . "%' ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
+                $sql = "SELECT * FROM recording_log WHERE ". $search_col . " LIKE '%". $search. "%' ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
             }
             else {
                 $sql = "SELECT * FROM recording_log ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
             }
-            if ($result = mysqli_query($conn, $sql)){
+            if (!$result = mysqli_query($conn, $sql)){
+                die('whoopse ');
+            }else{
             echo "<h1>".$sql."</h1>";
         ?>
             <form class="search" action="/" method="GET">
