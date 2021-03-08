@@ -45,8 +45,26 @@ tr, td, th, table{
 .page-link, .inactive{
     padding: 10px;
 }
-form#per-page{
-    grid-area: bottomR;
+form.search{
+    grid-area: search;
     padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: space-evenly;
+}
+form.search>section{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    margin: 10px;
+    justify-content: space-between;
+}
+input#search-query{
+    width: 50%;
+    margin: 0 10px;
+}
+form.search>section>select{
+    width: 25%;
 }
 

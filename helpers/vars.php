@@ -25,7 +25,7 @@ $get_total = mysqli_query($conn, $sql);
 $total_rows = mysqli_num_rows($get_total);
 
 $page = 1;
-$per_page = 10;
+$per_page = 25;
 $sort_on = "date_created_ts";
 $sort_order = 'desc';
 
