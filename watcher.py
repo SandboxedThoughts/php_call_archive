@@ -9,11 +9,20 @@ if __name__ == "__main__":
 
     # When a new file / directory is created do...
     def on_created(event):
+        
         print(event)
         if event.is_directory == True:
             print("We have a directory!")
+        
         else:
+            new_record = {}
             print("we have a file")
+            print("the filename is: {}".format(event.src_path.split("\\")[-1]))
+            parser = ET.parse(event.src_path)
+            for x in parser.getroot():
+                new_record[x.tag] = x.text
+            for k, v in new_record.items():
+                print (k,"-", v)
 
 
 
