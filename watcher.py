@@ -2,7 +2,7 @@ import os
 import time
 from xml.etree import ElementTree as ET
 from watchdog.observers import Observer
-from watchdog.events import PatternMatchingEventHandler
+from watchdog.events import PatternMatchingEventHandler, FileSystemEventHandler
 
 
 if __name__ == "__main__":
@@ -24,22 +24,15 @@ if __name__ == "__main__":
             for k, v in new_record.items():
                 print (k,"-", v)
 
-
-
-
     # Events
-    patterns = "*"
-    ignore_patterns = ""
-    ignore_directories = False
-    case_sensitive = False
-    recordings_event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
+    recordings_event_handler = FileSystemEventHandler()
     recordings_event_handler.on_created = on_created 
 
     # Observer
     path = "./phone_recordings"
     go_recursively = True
     recordings_observer = Observer()
-    recordings_observer.schedule(recordings_event_handler, path, recursive=go_recursively)
+    recordings_observer.schedule(recordings_event_handler, path, recursive = go_recursively)
 
     recordings_observer.start()
     try:
