@@ -22,15 +22,51 @@
                     include 'helpers/load.php';
                 }
             # Set starting page and record limit per page:
-            if (!isset($_GET['page'])){$page = 1;} else {$page = $_GET['page'];}
-            if (!isset($_GET['per_page'])){$per_page = 10;} else {$per_page = $_GET['per_page'];}
+            if (!isset($_GET['page'])){if(!isset($page)){$page = 1;}} else {$page = $_GET['page'];}
+            if (!isset($_GET['per_page'])){if (!isset($per_page)){$per_page = 10;}} else {$per_page = $_GET['per_page'];}
             # Set starting sort column and order
             if (!isset($_GET['sort_on'])){$sort_on = "date_created_ts";}else{$sort_on = $_GET['sort_on'];}
             if (!isset($_GET['sort_order'])){$sort_order = 'desc';}else{$sort_order = $_GET['sort_order'];}
             # Get the records for the page
-            $sql = "SELECT * FROM recording_log ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
-            if ($result = mysqli_query($conn, $sql)){
+            if(!isset($_GET['search'])){$search="";}else{$search = $_GET['search'];}
+            if(!isset($_GET['search_col'])){$search_col="";}else{$search_col = $_GET['search_col'];}
+            if (($search != "") AND ($search_col != "")){
+                $sql = "SELECT * FROM recording_log WHERE ". $search_col . " LIKE '%". $search. "%' ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
+            }
+            else {
+                $sql = "SELECT * FROM recording_log ORDER BY " . $sort_on . " " . $sort_order . " LIMIT " . ($page - 1) . "," . $per_page;
+            }
+            if (!$result = mysqli_query($conn, $sql)){
+                die('whoopse ');
+            }else{
         ?>
+            <form class="search" action="" method="GET">
+                <section class="search-settings">
+                    <label for="search">Search for: </label>
+                    <input id="search-query" type="text" name="search" />
+                    <label for="search_col"> in column:</label>
+                    <select name="search_col">
+                        <option value="recording_tag">Recording Tag</option>
+                        <option value="from_caller_id">From Caller ID</option>
+                        <option value="to_caller_id">To Caller ID</option>
+                        <option value="date_created_ts">Date Created</option>
+                    </select>
+                </section>
+                <section class="paginiation-settings">
+                    <div>
+                    <label for="paginate">Rows per page: </label>
+                    <select name="per_page">
+                        <option value="1"<?php if ($per_page == 1){echo "selected";} ?>>1</option>
+                        <option value="10"<?php if ($per_page == 10){echo "selected";} ?>>10</option>
+                        <option value="25"<?php if ($per_page == 25){echo "selected";} ?>>25</option>
+                        <option value="50"<?php if ($per_page == 50){echo "selected";} ?>>50</option>
+                        <option value="100"<?php if ($per_page == 100){echo "selected";} ?>>100</option>
+                    </select>
+                    </div>
+                    <input type="submit" value="search" id="search-button">
+                </section>
+                
+            </form>
             <div class="table-container">
                 <table id="recordings-table">
                     <thead>
@@ -66,15 +102,6 @@
                     </tbody>
                 </table>  
             </div>
-            <form action="" method="GET" id="per-page">
-                <select class="rows-per-page" name="per_page">
-                    <option value="10"<?php if ($per_page == 10){echo "selected";} ?>>10</option>
-                    <option value="25"<?php if ($per_page == 25){echo "selected";} ?>>25</option>
-                    <option value="50"<?php if ($per_page == 50){echo "selected";} ?>>50</option>
-                    <option value="100"<?php if ($per_page == 100){echo "selected";} ?>>100</option>
-                </select>
-                <input type="submit" value="per page">
-            </form>
 
             <?php include 'helpers/pagination.php'; ?>
 
