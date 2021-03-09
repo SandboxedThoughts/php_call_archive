@@ -1,4 +1,4 @@
 phone_recordings/*
 __pycache__/
 .vscode/
-settings.py
+helpers/settings.py
